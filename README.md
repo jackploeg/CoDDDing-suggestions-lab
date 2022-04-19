@@ -1,15 +1,14 @@
-# New repository on Xebia GitHub
+# Implementing a Bounded Context in Code
 
-Welcome to the Xebia GitHub organization!
+This repository has several labs to guide you from tests to production ready software in Java and C#.
 
-This organization contains a lot of repos and to keep things organized we kindly ask you to keep the following in mind:
+There are 4 labs that build up on each other and you can reach them through the branches. Each Lab has a start and a end solution.
+Here are the labs:
 
-1. Always provide a clear description so that the repo can be recognized in the repository list on GitHub.
-2. Modify this [README.md](./README.md) to provide information about the repo, how to run the code, etc.
-3. Public repos should adhere to our Quality without Compromise value so that the Xebia organization will be a showcase of nice projects to the outside world.
-4. Repositories should be maintained actively (at least bumping dependencies) or else archived/deleted.
+* Lab 1 - Implementing a bounded context using Outside-in TDD
+* Lab 2 - Supple design - Make the potential of the model clear
+* Lab 3 - Deep Model - refactoring to deeper insights (There are two parts to this lab)
+* Lab 4 - Coding Lab 4: Ports and Adapters aka Hexagonal architecture - Protecting your bounded context domain model
 
-If your repo does not satisfy these guidelines, you risk the repository to be deleted.
-In the future we plan to implement automatic checking of these guidelines so that abandoned repos will be deleted automatically.
-
-More info about the initiatives to keep our GitHub organization clean, see [xebia-github-admin-scripts](https://www.github.com/xebia/xebia-github-admin-scripts) and #github on [Slack](https://xebia.slack.com).
+So please start by checking out the lab1begin branch:
+`git checkout Lab1Begin`
