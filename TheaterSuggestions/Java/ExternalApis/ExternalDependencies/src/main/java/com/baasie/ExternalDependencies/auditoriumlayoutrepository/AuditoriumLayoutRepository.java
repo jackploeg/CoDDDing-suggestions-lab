@@ -1,7 +1,6 @@
 package com.baasie.ExternalDependencies.auditoriumlayoutrepository;
 
 import com.baasie.ExternalDependencies.IProvideAuditoriumLayouts;
-import com.baasie.SeatsSuggestionsDomain.ShowId;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 
@@ -18,9 +17,18 @@ public class AuditoriumLayoutRepository implements IProvideAuditoriumLayouts {
     private final Map<String, AuditoriumDto> repository = new HashMap<>();
 
     public AuditoriumLayoutRepository() throws IOException {
-        String jsonDirectory = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
-
-        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(jsonDirectory));
+        String jsonDirectoryForIntegrationTest = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
+        String jsonDirectoryForUnittest = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
+        String jsonDirectoryForBoot = Paths.get(System.getProperty("user.dir")).getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
+        Path pathToFiles;
+        if(Files.exists(Paths.get(jsonDirectoryForBoot))) {
+            pathToFiles = Paths.get(jsonDirectoryForBoot);
+        } else if(Files.exists(Paths.get(jsonDirectoryForIntegrationTest))) {
+            pathToFiles = Paths.get(jsonDirectoryForIntegrationTest);
+        } else {
+            pathToFiles = Paths.get(jsonDirectoryForUnittest);
+        }
+        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(pathToFiles);
 
         for (Path path : directoryStream) {
             if (path.toString().contains("_theater.json")) {
@@ -31,7 +39,7 @@ public class AuditoriumLayoutRepository implements IProvideAuditoriumLayouts {
         }
     }
 
-    public AuditoriumDto GetAuditoriumLayoutFor(ShowId showId) {
+    public AuditoriumDto GetAuditoriumLayoutFor(String showId) {
         if (repository.containsKey(showId)) {
             return repository.get(showId);
         }

@@ -26,7 +26,7 @@ public class OfferingAdjacentSeatsToMembersOfTheSamePartyTest {
 
         var row = new Row("A", new ArrayList<>(Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)));
 
-        assertThat((row.offerAdjacentSeatsNearerTheMiddleOfTheRow(new SuggestionRequest( new PartyRequested(3),
+        assertThat((row.offerAdjacentSeatsNearerTheMiddleOfTheRow(new SuggestionRequest( 3,
                 PricingCategory.Mixed)))).containsExactly(a5, a6, a7);
     }
 
@@ -46,7 +46,7 @@ public class OfferingAdjacentSeatsToMembersOfTheSamePartyTest {
 
         var row = new Row("A", new ArrayList<>(Arrays.asList( a1, a2, a3, a4, a5, a6, a7, a8, a9, a10 )));
 
-        assertThat(row.offerAdjacentSeatsNearerTheMiddleOfTheRow(new SuggestionRequest(new PartyRequested(2)
+        assertThat(row.offerAdjacentSeatsNearerTheMiddleOfTheRow(new SuggestionRequest(2
                         , PricingCategory.Mixed)))
                 .containsExactly(a2, a1);
     }

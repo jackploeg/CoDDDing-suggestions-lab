@@ -1,7 +1,6 @@
 package com.baasie.ExternalDependencies.reservationsprovider;
 
 import com.baasie.ExternalDependencies.IProvideCurrentReservations;
-import com.baasie.SeatsSuggestionsDomain.ShowId;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 
@@ -18,10 +17,18 @@ public class ReservationsProvider implements IProvideCurrentReservations {
     private final Map<String, ReservedSeatsDto> repository = new HashMap<>();
 
     public ReservationsProvider() throws IOException {
-        String jsonDirectory = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
-
-        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(jsonDirectory));
-
+        String jsonDirectoryForIntegrationTest = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
+        String jsonDirectoryForUnittest = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
+        String jsonDirectoryForBoot = Paths.get(System.getProperty("user.dir")).getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
+        Path pathToFiles;
+        if(Files.exists(Paths.get(jsonDirectoryForBoot))) {
+            pathToFiles = Paths.get(jsonDirectoryForBoot);
+        } else if(Files.exists(Paths.get(jsonDirectoryForIntegrationTest))) {
+            pathToFiles = Paths.get(jsonDirectoryForIntegrationTest);
+        } else {
+            pathToFiles = Paths.get(jsonDirectoryForUnittest);
+        }
+        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(pathToFiles);
         for (Path path : directoryStream) {
             if (path.toString().contains("_booked_seats.json")) {
                 String fileName = path.getFileName().toString();
@@ -32,10 +39,11 @@ public class ReservationsProvider implements IProvideCurrentReservations {
         }
     }
 
-    public ReservedSeatsDto getReservedSeats(ShowId showId) {
-        if (repository.containsKey(showId.ID())) {
-            return repository.get(showId.ID());
+    public ReservedSeatsDto getReservedSeats(String showId) {
+        if (repository.containsKey(showId)) {
+            return repository.get(showId);
         }
         return new ReservedSeatsDto();
     }
+
 }

@@ -3,7 +3,6 @@ package com.baasie.SeatsSuggestionsInfra;
 import com.baasie.ExternalDependencies.auditoriumlayoutrepository.AuditoriumLayoutRepository;
 import com.baasie.ExternalDependencies.reservationsprovider.ReservationsProvider;
 import com.baasie.SeatsSuggestionsDomain.AuditoriumSeating;
-import com.baasie.SeatsSuggestionsDomain.ShowId;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class AuditoriumSeatingTest {
         AuditoriumSeatingAdapter auditoriumLayoutAdapter =
                 new AuditoriumSeatingAdapter(new AuditoriumLayoutRepository(), new ReservationsProvider());
 
-        ShowId showIdWithoutReservationYet = new ShowId("18");
+        String showIdWithoutReservationYet = "18";
         AuditoriumSeating auditoriumSeatingFirstInstance =
                 auditoriumLayoutAdapter.getAuditoriumSeating(showIdWithoutReservationYet);
         AuditoriumSeating auditoriumSeatingSecondInstance =

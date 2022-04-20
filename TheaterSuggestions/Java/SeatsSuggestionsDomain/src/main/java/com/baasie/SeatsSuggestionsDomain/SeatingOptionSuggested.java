@@ -7,19 +7,19 @@ public class SeatingOptionSuggested {
 
     private final PricingCategory pricingCategory;
     private final List<Seat> seats = new ArrayList<>();
-    private final PartyRequested partyRequested;
+    private final int partyRequested;
 
     public SeatingOptionSuggested(SuggestionRequest suggestionRequest) {
         this.pricingCategory = suggestionRequest.pricingCategory();
         this.partyRequested = suggestionRequest.partyRequested();
     }
 
-    PartyRequested partyRequested() { return partyRequested;  }
+    int partyRequested() { return partyRequested;  }
 
     PricingCategory pricingCategory() { return pricingCategory; }
 
     public boolean matchExpectation() {
-        return seats.size() == partyRequested.partySize();
+        return seats.size() == partyRequested;
     }
 
     public List<Seat> seats() {

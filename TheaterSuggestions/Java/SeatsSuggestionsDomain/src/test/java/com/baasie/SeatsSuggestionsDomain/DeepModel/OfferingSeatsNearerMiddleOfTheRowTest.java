@@ -34,7 +34,7 @@ public class OfferingSeatsNearerMiddleOfTheRowTest {
 
     @Test
     public void offer_seats_from_the_middle_of_the_row_when_the_row_size_is_even_and_party_size_is_greater_than_one() {
-        PartyRequested partyRequested = new PartyRequested(2);
+        int partyRequested = 2;
 
         var a1 = new Seat("A", 1, PricingCategory.Second, SeatAvailability.Available);
         var a2 = new Seat("A", 2, PricingCategory.Second, SeatAvailability.Available);
@@ -52,14 +52,14 @@ public class OfferingSeatsNearerMiddleOfTheRowTest {
         var seatsWithDistance = new ArrayList<>(new OfferingSeatsNearerMiddleOfTheRow(row)
                 .offerSeatsNearerTheMiddleOfTheRow(new SuggestionRequest(partyRequested, PricingCategory.Mixed)));
 
-        var seats = seatsWithDistance.stream().map(SeatWithDistance::seat).limit(partyRequested.partySize()).collect(Collectors.toList());
+        var seats = seatsWithDistance.stream().map(SeatWithDistance::seat).limit(partyRequested).collect(Collectors.toList());
 
         assertThat(seats).containsExactly(a5, a6);
     }
 
     @Test
     public void offer_seats_from_the_middle_of_the_row_when_with_the_row_size_is_odd_and_party_size_is_greater_than_one() {
-        PartyRequested partyRequested = new PartyRequested(5);
+        int partyRequested = 5;
 
         var a1 = new Seat("A", 1, PricingCategory.Second, SeatAvailability.Available);
         var a2 = new Seat("A", 2, PricingCategory.Second, SeatAvailability.Available);
@@ -74,7 +74,7 @@ public class OfferingSeatsNearerMiddleOfTheRowTest {
         var row = new Row("A", new ArrayList<>(Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9)));
 
         var seatsWithDistance = new OfferingSeatsNearerMiddleOfTheRow(row)
-                .offerSeatsNearerTheMiddleOfTheRow(new SuggestionRequest(partyRequested, PricingCategory.Mixed)).stream().limit(partyRequested.partySize()).collect(Collectors.toList());
+                .offerSeatsNearerTheMiddleOfTheRow(new SuggestionRequest(partyRequested, PricingCategory.Mixed)).stream().limit(partyRequested).collect(Collectors.toList());
 
         var seats = seatsWithDistance.stream().map(SeatWithDistance::seat).sorted(Comparator.comparingInt(Seat::number)).collect(Collectors.toList());
 

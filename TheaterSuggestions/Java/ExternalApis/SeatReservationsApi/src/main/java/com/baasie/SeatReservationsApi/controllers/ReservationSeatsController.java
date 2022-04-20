@@ -3,7 +3,6 @@ package com.baasie.SeatReservationsApi.controllers;
 
 import com.baasie.ExternalDependencies.IProvideCurrentReservations;
 import com.baasie.ExternalDependencies.reservationsprovider.ReservedSeatsDto;
-import com.baasie.SeatsSuggestionsDomain.ShowId;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

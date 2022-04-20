@@ -1,7 +1,5 @@
 package com.baasie.SeatsSuggestionsApi.controllers;
 
-import com.baasie.SeatsSuggestionsDomain.PartyRequested;
-import com.baasie.SeatsSuggestionsDomain.ShowId;
 import com.baasie.SeatsSuggestionsDomain.SuggestionsMade;
 import com.baasie.SeatsSuggestionsDomain.port.IProvideAuditoriumSeating;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +21,7 @@ public class SeatSuggestionsController {
     // GET api/SeatsSuggestions?showId=5&party=3
     @GetMapping(produces = "application/json")
     public ResponseEntity<SuggestionsMade> makeSuggestions(@RequestParam String showId, @RequestParam int party) {
-        var suggestionsMade = iProvideAuditoriumSeating.makeSuggestions(new ShowId(showId),new PartyRequested(party));
+        var suggestionsMade = iProvideAuditoriumSeating.makeSuggestions(showId, party);
         return ResponseEntity.ok(suggestionsMade);
     }
 }

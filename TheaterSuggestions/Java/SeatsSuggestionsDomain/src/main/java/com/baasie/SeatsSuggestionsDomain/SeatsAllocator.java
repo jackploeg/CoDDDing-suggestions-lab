@@ -9,18 +9,18 @@ import java.util.List;
 
 public class SeatsAllocator implements IProvideAuditoriumSeating {
     private static final int NUMBER_OF_SUGGESTIONS = 3;
-    private final IAdaptAuditoriumSeating iAdaptAuditoriumSeating;
+    private final IAdaptAuditoriumSeating auditoriumSeatingAdapter;
 
-    public SeatsAllocator(IAdaptAuditoriumSeating iAdaptAuditoriumSeating) {
-        this.iAdaptAuditoriumSeating = iAdaptAuditoriumSeating;
+    public SeatsAllocator(IAdaptAuditoriumSeating auditoriumLayoutAdapter) {
+        this.auditoriumSeatingAdapter = auditoriumLayoutAdapter;
     }
 
     private static List<SuggestionMade> giveMeSuggestionsFor(
-            AuditoriumSeating auditoriumSeating, PartyRequested partyRequested, PricingCategory pricingCategory) {
+            AuditoriumSeating auditoriumSeating, int partyRequested, PricingCategory pricingCategory) {
 
-        var suggestionRequest = new SuggestionRequest(partyRequested, pricingCategory);
+        SuggestionRequest suggestionRequest = new SuggestionRequest(partyRequested, pricingCategory);
         List<SuggestionMade> foundedSuggestions = new ArrayList<>();
-        for (var i = 0; i < NUMBER_OF_SUGGESTIONS; i++) {
+        for (int i = 0; i < NUMBER_OF_SUGGESTIONS; i++) {
             SeatingOptionSuggested seatingOptionSuggested = auditoriumSeating.suggestSeatingOptionFor(suggestionRequest);
 
             if (seatingOptionSuggested.matchExpectation()) {
@@ -33,11 +33,11 @@ public class SeatsAllocator implements IProvideAuditoriumSeating {
         return ImmutableList.copyOf(foundedSuggestions);
     }
 
-    public SuggestionsMade makeSuggestions(ShowId showId, PartyRequested partyRequested) {
+    public SuggestionsMade makeSuggestions(String showId, int partyRequested) {
 
-        var auditoriumSeating = iAdaptAuditoriumSeating.getAuditoriumSeating(showId);
+        AuditoriumSeating auditoriumSeating = auditoriumSeatingAdapter.getAuditoriumSeating(showId);
 
-        var suggestionsMade = new SuggestionsMade(showId, partyRequested);
+        SuggestionsMade suggestionsMade = new SuggestionsMade(showId, partyRequested);
 
         suggestionsMade.add(giveMeSuggestionsFor(auditoriumSeating, partyRequested,
                 PricingCategory.First));

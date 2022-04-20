@@ -12,6 +12,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class SeatsAllocatorShould {
 
+
     @Test
     public void should_return_SeatsNotAvailable_when_Auditorium_has_all_its_seats_already_reserved() throws IOException {
         // Madison Auditorium-5
@@ -19,13 +20,13 @@ public class SeatsAllocatorShould {
         //      1   2   3   4   5   6   7   8   9  10
         // A : (2) (2) (1) (1) (1) (1) (1) (1) (2) (2)
         // B : (2) (2) (1) (1) (1) (1) (1) (1) (2) (2)
-        final ShowId showId = new ShowId("5");
-        final PartyRequested partyRequested = new PartyRequested(1);
+        final String showId = "5";
+        final int partyRequested = 1;
 
-        var auditoriumLayoutAdapter =
+        AuditoriumSeatingAdapter auditoriumLayoutAdapter =
                 new AuditoriumSeatingAdapter(new AuditoriumLayoutRepository(), new ReservationsProvider());
 
-        var seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
+        SeatsAllocator seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
 
         SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
@@ -39,15 +40,15 @@ public class SeatsAllocatorShould {
         //       1   2   3   4   5   6   7   8   9  10
         //  A : (2) (2)  1  (1) (1) (1) (1) (1) (2) (2)
         //  B : (2) (2) (1) (1) (1) (1) (1) (1) (2) (2)
-        final ShowId showId = new ShowId("1");
-        final PartyRequested partyRequested = new PartyRequested(1);
+        final String showId = "1";
+        final int partyRequested = 1;
 
-        var auditoriumLayoutAdapter =
+        AuditoriumSeatingAdapter auditoriumLayoutAdapter =
                 new AuditoriumSeatingAdapter(new AuditoriumLayoutRepository(), new ReservationsProvider());
 
-        var seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
+        SeatsAllocator seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
 
-        var suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
+        SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
         assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A3");
     }
@@ -63,15 +64,15 @@ public class SeatsAllocatorShould {
         //  D: 2   2   2   2   2   2   2   2   2   2
         //  E: 3   3   3   3   3   3   3   3   3   3
         //  F: 3   3   3   3   3   3   3   3   3   3
-        final ShowId showId = new ShowId("18");
-        final PartyRequested partyRequested = new PartyRequested(1);
+        final String showId = "18";
+        final int partyRequested = 1;
 
-        var auditoriumLayoutAdapter =
+        AuditoriumSeatingAdapter auditoriumLayoutAdapter =
                 new AuditoriumSeatingAdapter(new AuditoriumLayoutRepository(), new ReservationsProvider());
 
-        var seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
+        SeatsAllocator seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
 
-        var suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
+        SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
         assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A5", "A6", "A4");
         assertThat(suggestionsMade.seatNames(PricingCategory.Second)).containsExactly("A2", "A9", "A1");
@@ -87,20 +88,21 @@ public class SeatsAllocatorShould {
         //    1   2   3   4   5   6   7   8   9  10
         // A: 2   2   1   1  (1) (1) (1) (1)  2   2
         // B: 2   2   1   1   1   1   1   1   2   2
-        final ShowId showId = new ShowId("9");
-        final PartyRequested partyRequested = new PartyRequested(1);
+        final String showId = "9";
+        final int partyRequested = 1;
 
-        var auditoriumLayoutAdapter =
+        AuditoriumSeatingAdapter auditoriumLayoutAdapter =
                 new AuditoriumSeatingAdapter(new AuditoriumLayoutRepository(), new ReservationsProvider());
 
-        var seatAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
+        SeatsAllocator seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
 
-        var suggestionsMade = seatAllocator.makeSuggestions(showId, partyRequested);
+        SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
         assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A4", "A3", "B5");
     }
     @Test
     public void should_offer_4_adjacent_seats_nearer_the_middle_of_a_row_when_it_is_possible() throws IOException {
+        //
         // Dock Street Auditorium-3
         //
         //      1   2   3   4   5   6   7   8   9  10
@@ -110,15 +112,15 @@ public class SeatsAllocatorShould {
         // D :  2   2   2   2   2   2   2   2   2   2
         // E :  3   3   3   3   3   3   3   3   3   3
         // F :  3   3   3   3   3   3   3   3   3   3
-        final ShowId showId = new ShowId("3");
-        final PartyRequested partyRequested = new PartyRequested(4);
+        final String showId = "3";
+        final int partyRequested = 4;
 
-        var auditoriumLayoutAdapter =
+        AuditoriumSeatingAdapter auditoriumLayoutAdapter =
                 new AuditoriumSeatingAdapter(new AuditoriumLayoutRepository(), new ReservationsProvider());
 
-        var seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
+        SeatsAllocator seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
 
-        var suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
+        SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
         assertThat(suggestionsMade.seatNames(PricingCategory.First)).isEmpty();
         assertThat(suggestionsMade.seatNames(PricingCategory.Second))
@@ -132,6 +134,7 @@ public class SeatsAllocatorShould {
 
     @Test
     public void should_offer_3_adjacent_seats_nearer_the_middle_of_a_row_when_it_is_possible() throws IOException {
+        //
         // Dock Street Auditorium-3
         //
         //      1   2   3   4   5   6   7   8   9  10
@@ -141,15 +144,15 @@ public class SeatsAllocatorShould {
         // D :  2   2   2   2   2   2   2   2   2   2
         // E :  3   3   3   3   3   3   3   3   3   3
         // F :  3   3   3   3   3   3   3   3   3   3
-        final ShowId showId = new ShowId("3");
-        final PartyRequested partyRequested = new PartyRequested(3);
+        final String showId = "3";
+        final int partyRequested = 3;
 
-        var auditoriumLayoutAdapter =
+        AuditoriumSeatingAdapter auditoriumLayoutAdapter =
                 new AuditoriumSeatingAdapter(new AuditoriumLayoutRepository(), new ReservationsProvider());
 
-        var seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
+        SeatsAllocator seatsAllocator = new SeatsAllocator(auditoriumLayoutAdapter);
 
-        var suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
+        SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
         assertThat(suggestionsMade.seatNames(PricingCategory.First)).
                 containsExactly("A6-A7-A8");

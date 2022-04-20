@@ -84,7 +84,7 @@ public class OfferingAdjacentSeatsToMembersOfTheSameParty {
         var adjacentSeatsGroups = new AdjacentSeatsGroups();
 
         for (var adjacentSeats : new ArrayList<>(groupOfAdjacentSeats.groups)) {
-            List<SeatWithDistance> seatWithDistances = adjacentSeats.seatsWithDistance.stream().limit(suggestionRequest.partyRequested().partySize()).collect(Collectors.toList());
+            List<SeatWithDistance> seatWithDistances = adjacentSeats.seatsWithDistance.stream().limit(suggestionRequest.partyRequested()).collect(Collectors.toList());
             adjacentSeatsGroups.groups.add(new AdjacentSeats(seatWithDistances.stream().sorted(Comparator.comparing(SeatWithDistance::distanceFromTheMiddleOfTheRow)).collect(Collectors.toList())));
         }
         return adjacentSeatsGroups;
@@ -102,7 +102,7 @@ public class OfferingAdjacentSeatsToMembersOfTheSameParty {
 
     private static boolean
     isMatchingPartyRequested(SuggestionRequest suggestionRequest, AdjacentSeats adjacentSeats) {
-        return adjacentSeats.seatsWithDistance.size() >= suggestionRequest.partyRequested().partySize();
+        return adjacentSeats.seatsWithDistance.size() >= suggestionRequest.partyRequested();
     }
 
     private static List<SeatWithDistance>

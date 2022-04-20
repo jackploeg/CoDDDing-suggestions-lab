@@ -1,22 +1,9 @@
 package com.baasie.SeatsSuggestionsDomain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode
-public class Seat {
-
-    private final String rowName;
-    private final int number;
-    private final PricingCategory pricingCategory;
-    private final SeatAvailability seatAvailability;
-
-    public Seat(String rowName, int number, PricingCategory pricingCategory, SeatAvailability seatAvailability) {
-        this.rowName = rowName;
-        this.number = number;
-        this.pricingCategory = pricingCategory;
-        this.seatAvailability = seatAvailability;
-    }
-
+public record Seat(@JsonProperty("rowName") String rowName, @JsonProperty("number")  int number, @JsonProperty("pricingCategory")  PricingCategory pricingCategory, @JsonProperty("seatAvailability")  SeatAvailability seatAvailability) {
     public boolean isAvailable() {
         return seatAvailability == SeatAvailability.Available;
     }
@@ -38,22 +25,6 @@ public class Seat {
 
     public boolean sameSeatLocation(Seat seat) {
         return rowName.equals(seat.rowName) && number == seat.number;
-    }
-
-    public SeatAvailability seatAvailability() {
-        return seatAvailability;
-    }
-
-    public String rowName() {
-        return rowName;
-    }
-
-    public int number() {
-        return number;
-    }
-
-    public PricingCategory pricingCategory() {
-        return pricingCategory;
     }
 
     @Override
