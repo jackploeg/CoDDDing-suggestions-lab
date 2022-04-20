@@ -38,15 +38,43 @@ In part 1 we started to implement the first part of the deep model. In this seco
 ## Lab 4 - Ports and Adapters aka Hexagonal
 
 Now that we have a deeper understanding and probed our model in code, it is time to make it production ready! For that we use the Ports and Adapters architecture.
-The current state the code is in, works. You can run the two External API in that project, and then start the SeatsSuggestions.Api and call ` http://localhost:8080/api/SeatsSuggestions?showId=5&party=3` and you should get the following output   
+The current state the code is in, works. You can run the two External API in that project, and then start the SeatsSuggestions.Api and call ` http://localhost:8080/api/SeatsSuggestions?showId=1&party=3` and you should get the following output   
 ```
 {
-  "ShowId": "5",
-  "PartyRequested": 3,
-  "SeatsInFirstPricingCategory": [],
-  "SeatsInSecondPricingCategory": [],
-  "SeatsInThirdPricingCategory": [],
-  "SeatsInMixedPricingCategory": []
+  "forCategory": {
+    "Second": [],
+    "Mixed": [
+      {
+        "suggestedSeats": [
+          {
+            "rowName": "A",
+            "number": 3,
+            "pricingCategory": "First",
+            "seatAvailability": "Available",
+            "available": true
+          }
+        ],
+        "partyRequested": 1,
+        "pricingCategory": "Mixed"
+      }
+    ],
+    "First": [
+      {
+        "suggestedSeats": [
+          {
+            "rowName": "A",
+            "number": 3,
+            "pricingCategory": "First",
+            "seatAvailability": "Available",
+            "available": true
+          }
+        ],
+        "partyRequested": 1,
+        "pricingCategory": "First"
+      }
+    ],
+    "Third": []
+  }
 }
 ```
 
