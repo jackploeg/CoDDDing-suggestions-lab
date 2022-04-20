@@ -1,5 +1,9 @@
 package com.baasie.SeatsSuggestions;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.MapSerializer;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SuggestionsMade {
+
     public Map<PricingCategory, List<SuggestionMade>> forCategory = new HashMap<>();
     private final String showId;
     private final int partyRequested;

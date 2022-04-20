@@ -1,14 +1,17 @@
 package com.baasie.SeatsSuggestions;
 
 import com.google.common.collect.ImmutableList;
+import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class SuggestionMade {
 
-    private final ImmutableList<Seat> suggestedSeats;
+    public final List<Seat> suggestedSeats;
     private final int partyRequested;
     private final PricingCategory pricingCategory;
 
