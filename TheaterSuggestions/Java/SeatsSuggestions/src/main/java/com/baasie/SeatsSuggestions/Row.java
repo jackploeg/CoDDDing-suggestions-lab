@@ -1,18 +1,12 @@
 package com.baasie.SeatsSuggestions;
 import  com.baasie.SeatsSuggestions.DeepModel.*;
-import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@EqualsAndHashCode
-public class Row {
-    private final String name;
-    private final List<Seat> seats;
-
-    public
-    Row(String name, List<Seat> seats) {
+public record Row(String name, List<Seat> seats) {
+    public Row(String name, List<Seat> seats) {
 
         this.name = name;
         this.seats = seats
@@ -22,12 +16,7 @@ public class Row {
                         s.number(),
                         s.pricingCategory(),
                         s.seatAvailability()))
-                        .collect(Collectors.toList());
-    }
-
-    public List<Seat>
-    seats() {
-        return seats;
+                .collect(Collectors.toList());
     }
 
     public Row
@@ -55,8 +44,7 @@ public class Row {
     }
 
     public List<Seat>
-    offerAdjacentSeatsNearerTheMiddleOfTheRow(SuggestionRequest suggestionRequest)
-    {
+    offerAdjacentSeatsNearerTheMiddleOfTheRow(SuggestionRequest suggestionRequest) {
         // 1. offer seats from the middle of the row
         var seatWithTheDistanceFromTheMiddleOfTheRows =
                 new OfferingSeatsNearerMiddleOfTheRow(this).offerSeatsNearerTheMiddleOfTheRow(suggestionRequest);

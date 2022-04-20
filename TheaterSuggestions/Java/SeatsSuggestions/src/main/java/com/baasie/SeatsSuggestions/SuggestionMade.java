@@ -1,19 +1,14 @@
 package com.baasie.SeatsSuggestions;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
-import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class SuggestionMade {
-
-    public final List<Seat> suggestedSeats;
-    private final int partyRequested;
-    private final PricingCategory pricingCategory;
+public record SuggestionMade(@JsonProperty("suggestedSeats")List<Seat> suggestedSeats, @JsonProperty("partyRequested")int partyRequested, @JsonProperty("pricingCategory")PricingCategory pricingCategory) {
 
     public SuggestionMade(List<Seat> suggestedSeats, int partyRequested, PricingCategory pricingCategory) {
         this.suggestedSeats = ImmutableList.copyOf(suggestedSeats);
@@ -27,9 +22,5 @@ public class SuggestionMade {
 
     public boolean MatchExpectation() {
         return suggestedSeats.size() == partyRequested;
-    }
-
-    public PricingCategory pricingCategory() {
-        return pricingCategory;
     }
 }

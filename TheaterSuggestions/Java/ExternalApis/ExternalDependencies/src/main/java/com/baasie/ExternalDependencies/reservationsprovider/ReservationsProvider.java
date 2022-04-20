@@ -19,12 +19,14 @@ public class ReservationsProvider implements IProvideCurrentReservations {
     private final Map<String, ReservedSeatsDto> repository = new HashMap<>();
 
     public ReservationsProvider() throws IOException {
-
+        String jsonDirectoryForIntegrationTest = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
         String jsonDirectoryForUnittest = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
         String jsonDirectoryForBoot = Paths.get(System.getProperty("user.dir")).getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
         Path pathToFiles;
         if(Files.exists(Paths.get(jsonDirectoryForBoot))) {
             pathToFiles = Paths.get(jsonDirectoryForBoot);
+        } else if(Files.exists(Paths.get(jsonDirectoryForIntegrationTest))) {
+            pathToFiles = Paths.get(jsonDirectoryForIntegrationTest);
         } else {
             pathToFiles = Paths.get(jsonDirectoryForUnittest);
         }
