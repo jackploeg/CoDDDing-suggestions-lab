@@ -13,6 +13,8 @@ namespace SeatReservations.Api
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
+                
+                .UseUrls("http://localhost:5000")
                 .UseStartup<Startup>();
         }
     }
