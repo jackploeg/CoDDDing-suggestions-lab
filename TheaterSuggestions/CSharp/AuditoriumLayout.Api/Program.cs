@@ -13,6 +13,7 @@ namespace AuditoriumLayout.Api
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://localhost:6000")
                 .UseStartup<Startup>();
         }
     }

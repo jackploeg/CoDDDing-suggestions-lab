@@ -17,7 +17,7 @@ namespace SeatsSuggestions.Api.Controllers
             _seatSuggestionsForShows = seatSuggestionsForShows;
         }
 
-        // GET api/SeatsSuggestions?showId=5&party=3
+        // GET api/SeatsSuggestions?showId=8&party=3
         [HttpGet]
         public async Task<ActionResult<string>> Get([FromQuery(Name = "showId")] string showId,
             [FromQuery(Name = "party")] int party)
