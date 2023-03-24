@@ -10,7 +10,8 @@ import java.io.IOException;
 
 @Configuration
 @ComponentScan("com.baasie.ExternalDependencies")
-public class config {
+public class Config
+{
 
     @Bean
     public IProvideAuditoriumLayouts iProvideAuditoriumLayouts() throws IOException {

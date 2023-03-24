@@ -1,6 +1,8 @@
 package com.baasie.AuditoriumLayoutApi.controllers;
 
 
+import lombok.RequiredArgsConstructor;
+
 import com.baasie.ExternalDependencies.IProvideAuditoriumLayouts;
 import com.baasie.ExternalDependencies.auditoriumlayoutrepository.AuditoriumDto;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/data_for_auditoriumSeating")
+@RequiredArgsConstructor
 public class AuditoriumSeatingController {
 
     private final IProvideAuditoriumLayouts provideAuditoriumLayouts;
-
-    public AuditoriumSeatingController(IProvideAuditoriumLayouts provideAuditoriumLayouts) {
-        this.provideAuditoriumLayouts = provideAuditoriumLayouts;
-    }
 
     // GET api/data_for_auditoriumSeating/5
     @GetMapping(value = "/{showId}", produces = "application/json")

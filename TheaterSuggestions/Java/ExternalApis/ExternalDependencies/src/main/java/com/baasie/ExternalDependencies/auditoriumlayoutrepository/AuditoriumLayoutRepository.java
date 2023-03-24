@@ -28,13 +28,17 @@ public class AuditoriumLayoutRepository implements IProvideAuditoriumLayouts {
         } else {
             pathToFiles = Paths.get(jsonDirectoryForUnittest);
         }
-        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(pathToFiles);
 
-        for (Path path : directoryStream) {
-            if (path.toString().contains("_theater.json")) {
-                String fileName = path.getFileName().toString();
-                ObjectMapper mapper = new ObjectMapper().registerModule(new GuavaModule());
-                repository.put(fileName.split("-")[0], mapper.readValue(path.toFile(), AuditoriumDto.class));
+        try(DirectoryStream<Path> directoryStream = Files.newDirectoryStream(pathToFiles))
+        {
+            for (Path path : directoryStream)
+            {
+                if (path.toString().contains("_theater.json"))
+                {
+                    String fileName = path.getFileName().toString();
+                    ObjectMapper mapper = new ObjectMapper().registerModule(new GuavaModule());
+                    repository.put(fileName.split("-")[0], mapper.readValue(path.toFile(), AuditoriumDto.class));
+                }
             }
         }
     }
